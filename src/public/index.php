@@ -14,6 +14,7 @@ use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Stream;
 use Phalcon\Events\Event;
 use Phalcon\Events\Manager as EventsManager;
+require("../vendor/autoload.php");
 
 $config = new Config([]);
 
