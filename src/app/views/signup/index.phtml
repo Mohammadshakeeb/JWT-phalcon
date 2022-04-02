@@ -1,5 +1,19 @@
 
-<h2>Sign up using this form</h2>
+           <form action="/signup">
+                    <select onchange="this.form.submit()" name="locale" value=<?php echo isset($_GET['locale']) ? $_GET['locale'] : 'english'; ?>>
+
+                        <option value="english" selected>English</option>
+                        <option value="german">German</option>
+                        <option value="hindi">Hindi</option>
+                    </select>
+                </form>
+                <?php
+                if (isset($_GET['locale'])) {
+                    echo 'Language is set to ' . $_GET['locale'];
+                }
+                ?>
+
+<h2><?php echo $this->locale->_('Sign up using this form'); ?></h2>
 
 <?php 
     if(isset($message)){
@@ -9,17 +23,17 @@
 <?php echo $this->tag->form("signup/register"); ?>
 
     <p>
-        <label for="name">Name</label>
+        <label for="name"><?php echo $this->locale->_('Name'); ?></label>
         <?php echo $this->tag->textField("name"); ?>
     </p>
 
     <p>
-        <label for="email">E-Mail</label>
+        <label for="email"><?php echo $this->locale->_('Email Address'); ?></label>
         <?php echo $this->tag->textField("email"); ?>
     </p>
 
     <p>
-    <label for="role">CHOOSE A ROLE:</label>
+    <label for="role"><?php echo $this->locale->_('Choose a role'); ?></label>
     <select  name="role">
         <?php
         $dat=Roles::find();
@@ -33,7 +47,7 @@
     </p>
 
     <p>
-        <?php echo $this->tag->submitButton("Registerr"); ?>
+        <?php echo $this->tag->submitButton("Register"); ?>
     </p>
 
 </form>

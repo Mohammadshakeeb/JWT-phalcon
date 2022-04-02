@@ -42,58 +42,58 @@ class notificationListeners
         return $values;
     }
 
-    public function beforeHandleRequest(Event $event, \Phalcon\Mvc\Application $application)
-    {
-        // echo "hii";
-        // die;
+    // public function beforeHandleRequest(Event $event, \Phalcon\Mvc\Application $application)
+    // {
+    //     // echo "hii";
+    //     // die;
 
-        $aclfile = APP_PATH . '/security/acl.cache';
-        if (is_file($aclfile) == true) {
+    //     $aclfile = APP_PATH . '/security/acl.cache';
+    //     if (is_file($aclfile) == true) {
 
-            $acl = unserialize(
-                file_get_contents($aclfile)
-            );
+    //         $acl = unserialize(
+    //             file_get_contents($aclfile)
+    //         );
 
 
-            $bearer = $application->request->get('bearer');
-            if ($bearer) {
+    //         $bearer = $application->request->get('bearer');
+    //         if ($bearer) {
 
-                try {
-                    // echo "hii";
-                    //   die;
-                    // $parser = new Parser();
-                    // $tokenObject = $parser->parse($bearer);
-                    // $now = new \DateTimeImmutable();
-                    // $expire = $now->getTimestamp();
-                    // // $expire=$now->modify('+1 day')->getTimestamp();
-                    // $validator = new Validator($tokenObject, 100);
-                    // $validator -> validateExpiration($expire);
-                    // $claims = $tokenObject->getClaims()->getPayload();
-                    // $role = $claims['sub'];
-                    // echo $role;
-                    // die;
-                   // $role = $application->request->get('role');
-                   $key = "example_key";
-                   $decoded = JWT::decode($bearer, new Key($key, 'HS256'));
-                   $role= $decoded->role;
-                    $controller = $application->router->getControllerName();
-                    $action = $application->router->getActionName();
-                    if (!$role || true !== $acl->isAllowed($role, $controller, $action)) {
-                        echo "access denied";
-                        die();
-                    }
-                } catch (\Exception $e) {
-                    $e->getMessage();
-                    die;
-                }
-            } else {
-                echo "token not provided";
-                die;
-            }
-        } else {
+    //             try {
+    //                 // echo "hii";
+    //                 //   die;
+    //                 // $parser = new Parser();
+    //                 // $tokenObject = $parser->parse($bearer);
+    //                 // $now = new \DateTimeImmutable();
+    //                 // $expire = $now->getTimestamp();
+    //                 // // $expire=$now->modify('+1 day')->getTimestamp();
+    //                 // $validator = new Validator($tokenObject, 100);
+    //                 // $validator -> validateExpiration($expire);
+    //                 // $claims = $tokenObject->getClaims()->getPayload();
+    //                 // $role = $claims['sub'];
+    //                 // echo $role;
+    //                 // die;
+    //                // $role = $application->request->get('role');
+    //                $key = "example_key";
+    //                $decoded = JWT::decode($bearer, new Key($key, 'HS256'));
+    //                $role= $decoded->role;
+    //                 $controller = $application->router->getControllerName();
+    //                 $action = $application->router->getActionName();
+    //                 if (!$role || true !== $acl->isAllowed($role, $controller, $action)) {
+    //                     echo "access denied";
+    //                     die();
+    //                 }
+    //             } catch (\Exception $e) {
+    //                 $e->getMessage();
+    //                 die;
+    //             }
+    //         } else {
+    //             echo "token not provided";
+    //             die;
+    //         }
+    //     } else {
 
-            echo "No ACL";
-            die();
-        }
-    }
+    //         echo "No ACL";
+    //         die();
+    //     }
+    // }
 }

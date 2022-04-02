@@ -1,4 +1,5 @@
 <?php
+
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
@@ -6,12 +7,18 @@ use Phalcon\Mvc\Application;
 use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
+use Phalcon\Session\Manager;
+use Phalcon\Http\Response\Cookies;
+use Phalcon\Session\Adapter\Stream;
 use Phalcon\Events\Event;
 use Phalcon\Events\Manager as EventsManager;
-use Phalcon\Cli\Console;
-use Phalcon\Cli\Dispatcher;
-use Phalcon\Di\FactoryDefault\Cli as CliDI;
-use Phalcon\Exception as PhalconException;
+use Phalcon\Translate\Adapter\NativeArray;
+use Phalcon\Translate\InterpolatorFactory;
+use Phalcon\Translate\TranslateFactory;
+use App\component\locale;
+
+
+// use Phalcon\Locale;
 
 require("../vendor/autoload.php");
 
@@ -31,12 +38,14 @@ $loader->registerDirs(
     ]
 );
 
-$loader->register();
+
 $loader->registerNamespaces(
     [
-        'App\Listeners' => APP_PATH . '/listeners'
+        'App\Listeners' => APP_PATH . '/listeners',
+        'App\component' => APP_PATH . '/component'
     ]
 );
+$loader->register();
 
 $container = new FactoryDefault();
 
@@ -48,6 +57,8 @@ $container->set(
         return $view;
     }
 );
+$container->set('locale',
+(new \App\component\locale())->getTranslator());
 
 $container->set(
     'url',
@@ -130,6 +141,3 @@ try {
 } catch (\Exception $e) {
     echo 'Exception: ', $e->getMessage();
 }
-
-
-?>
