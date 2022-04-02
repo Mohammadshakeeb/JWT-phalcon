@@ -28,7 +28,7 @@ class SignupController extends Controller
             "role"=>$_POST['role']
         );
         $jwt = JWT::encode($payload, $key, 'HS256');
-        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+        // $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
       
         // echo "<pre>";
         // print_r($decoded);

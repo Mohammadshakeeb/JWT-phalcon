@@ -1,8 +1,4 @@
 <?php
-// print_r(apache_get_modules());
-// echo "<pre>"; print_r($_SERVER); die;
-// $_SERVER["REQUEST_URI"] = str_replace("/phalt/","/",$_SERVER["REQUEST_URI"]);
-// $_GET["_url"] = "/";
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
@@ -10,10 +6,13 @@ use Phalcon\Mvc\Application;
 use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
-use Phalcon\Session\Manager;
-use Phalcon\Session\Adapter\Stream;
 use Phalcon\Events\Event;
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Cli\Console;
+use Phalcon\Cli\Dispatcher;
+use Phalcon\Di\FactoryDefault\Cli as CliDI;
+use Phalcon\Exception as PhalconException;
+
 require("../vendor/autoload.php");
 
 $config = new Config([]);
@@ -131,3 +130,6 @@ try {
 } catch (\Exception $e) {
     echo 'Exception: ', $e->getMessage();
 }
+
+
+?>
